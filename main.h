@@ -2,134 +2,84 @@
 
 #define MAIN_H
 
-
-
-#include <stdlib.h>
 #include <stdarg.h>
+
 #include <stdio.h>
-#include <unistd.h>
-#include <limits.h>
-
 
 /**
- * struct flags - struct containing flags to "turn on"
- * when a flag specifier is passed to _printf()
- * @plus: flag for the '+' character
- * @space: flag for the ' ' character
- * @hash: flag for the '#' character
+ * struct vtype - struct vtype
+ * @tp: tp
+ * @f: function
  */
-typedef struct flags
+
+typedef struct vtype
 {
-	int plus;
+	char tp;
 
-	int space;
+	void (*f)();
 
-	int hash;
-
-} flags_t;
-
-
-/**
- * struct printHandler - struct to choose the right function depending
- * on the format specifier passed to _printf()
- * @c: format specifier
- * @f: pointer to the correct printing function
- */
-typedef struct printHandler
-{
-
-	char c;
-
-	int (*f)(va_list ap, flags_t *f);
-
-} ph;
-
-
-
-/* print_nums */
-
-int print_int(va_list l, flags_t *f);
-
-void print_number(int n);
-
-int print_unsigned(va_list l, flags_t *f);
-
-int count_digit(int i);
-
-
-
-/* print_bases */
-
-int print_hex(va_list l, flags_t *f);
-
-int print_hex_big(va_list l, flags_t *f);
-
-int print_binary(va_list l, flags_t *f);
-
-int print_octal(va_list l, flags_t *f);
-
-
-
-/* converter */
-
-char *convert(unsigned long int num, int base, int lowercase);
-
-
-
-/* _printf */
+} vtype_t;
 
 int _printf(const char *format, ...);
 
+void print_char(va_list valist);
 
+void print_int(va_list valist);
 
-/* get_print */
+void print_float(va_list valist);
 
-int (*get_print(char s))(va_list, flags_t *);
+void print_string(va_list valist);
 
+void _write_buffer(char *buffer, int *index);
 
+int _strlen(char *s);
 
-/* get_flag */
+char *_memcpy(char *dest, char *src, unsigned int n);
 
-int get_flag(char s, flags_t *f);
+void format_s(va_list valist, char *buffer, int *index);
 
+void format_c(va_list valist, char *buffer, int *index);
 
+void format_d(va_list valist, char *buffer, int *index);
 
-/* print_alpha */
+char *itos(char str[], long int num);
 
-int print_string(va_list l, flags_t *f);
+char *utos(char str[], int num);
 
-int print_char(va_list l, flags_t *f);
+int num_len(int num);
 
+int float_len(double f);
 
+void format_i(va_list valist, char *buffer, int *index);
 
-/* write_funcs */
+void format_u(va_list valist, char *buffer, int *index);
 
-int _putchar(char c);
+void format_perc(va_list valist, char *buffer, int *index);
 
-int _puts(char *str);
+void format_p(va_list valist, char *buffer, int *index);
 
+void format_lx(va_list valist, char *buffer, int *index);
 
+char *tostring(char str[], int num);
 
-/* print_custom */
+int num_len(int num);
 
-int print_rot13(va_list l, flags_t *f);
+void reset_buffer(char buffer[]);
 
-int print_rev(va_list l, flags_t *f);
+void *rot13(char *s);
 
-int print_bigS(va_list l, flags_t *f);
+void rev_string(char *s);
 
+void format_h(va_list valist, char *buffer, int *index);
 
+void format_ch(va_list valist, char *buffer, int *index);
 
-/* print_address */
+void format_o(va_list valist, char *buffer, int *index);
 
-int print_address(va_list l, flags_t *f);
+void format_b(va_list valist, char *buffer, int *index);
 
+void format_r(va_list valist, char *buffer, int *index);
 
+void format_R(va_list valist, char *buffer, int *index);
 
-/* print_percent */
-
-int print_percent(va_list l, flags_t *f);
-
-
-
-#endif
+#endif /* HOLBERTON_H */
