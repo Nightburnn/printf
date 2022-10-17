@@ -1,152 +1,140 @@
-.TH _printf 1 "October 16, 2022" "version 1.0" "_printf man page"
+.TH man 3 "17 October 2022" "0.10" "_printf man page"
 
 .SH NAME
 
-_printf - format and print data
+.B _printf
+
+- Formatted output conversation.
 
 .SH SYNOPSIS
 
-#include <unistd.h> <stdarg.h> <stdlib.h> "main.h"
+.B #include "main.h"
 
-int printf(const char *format, ...);
+
+
+B int _printf(const char *
+
+.I format
+
+.B , ...)
 
 .SH DESCRIPTION
 
-function that produces output according to a format.  Writes the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length argument facilities of stdarg(3)) are converted for output.  Execute according to option:
+.B _printf()
 
+Prints to standard output under the control of a
 
-.I
+.I format
 
-.SS CONVERSION SPECIFIERS:
+string that specifies how subsequent arguments are converted for output.
 
-.RS
+.SH Return value
 
+On successful return, these functions return the number of characters printed, excluding the null byte used to end output to strings.
 
-A character that specifies the type of conversion to be applied. The conversion specifiers and their meanings are:
 
 
+If an output error is encountered, a negative value is returned.
 
-.IP d,i
+.SH Format of the format string
 
-Decimal signed integer. The int argument is converted to signed decimal notation. 
+The format string is composed of 0 or more directives (ordinary characters that are not %), which are copied to the output stream. The format string is also composed of conversion specifications, each of which result in fetching zero or more subsequent arguments. Each conversion specification is introduced by the character % and ends with the conversion specifier.
 
+The argument must correspond properly with the conversion specifier. By default, the arguments are used in the order given.
 
+.SH The conversion specifier
 
-.IP c
+ A character that specifies the type of conversion to be applied. The conversion specifiers and their meanings are:
 
-Character. The int argument is converted to an unsigned char, and the resulting character is written.
+ .TP
 
+ .BR c
 
+ The int argument is converted to an unsigned char, then the resulting character is written
 
-.IP s
+ .TP
 
-The const char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0').
+ .B s
 
+ The const char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to a terminating null byte, but do ot include the terminating null byte.
 
+ .TP
 
-.IP o,u,x,X
+ .B S
 
-The unsigned int argument is converted to unsigned octal (o), unsigned decimal (u), or unsigned hexadecimal (x and X) notation. The letters abcdef are used for x conversions; the letters ABCDEF are used for X conversions.
+ Prints a string. Non printable characters are printed as "\x" followed by their ASCII values in two digit hexadecimal
 
+ .TP
 
+ .B d, i
 
-.IP p
+ The int argument is converted to signed decimal notation.
 
-The void * pointer argument is printed in hexadecimal (as if by %#x or %#lx).
+ .TP
 
+ .B u
 
+ The unsigned int argument is converted to unsigned decimal notation
 
-.I
+ .TP
 
-.SS CUSTOM CONVERSION SPECIFIERS
+ .B o
 
-.RS
+ The unsigned int argument is converted to unsigned octal notation.
 
+ .TP
 
+ .B x
 
-.IP b
+ The unsigned int argument is converted to unsigned lowercase hexadecimal notation.
 
-Decimal signed integer. The int argument is converted to binary notation.
+ .TP
 
+ .B X
 
+ The unsigned int argument is converted to unsigned uppercase hexadecimal notation.
 
-.IP r
+ .TP
 
-The const char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but n\ot including) a terminating null byte ('\0') in reverse order.
+ .B b
 
+ The unsigned int argument is converted to unsigned binary notation.
 
+ .TP
 
+ .B p
 
+ Address is printed in hexadecimal.
 
-.IP R
+ .TP
 
-The const char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but n\
+ .B r
 
-\ot including) a terminating null byte ('\0') in ROT13 format.
+ Prints a string in reverse.
 
+ .TP
 
-.SH RETURN VALUE
+ .B R
 
-.RS
+ Prints a string converted to rot13
 
-Upon successful return, these functions return the number of characters printed (excluding the null byte used to end output to strings).
+ .TP
 
+ .B %
 
+ A '%' is written but no argument is converted. The complete version specification is '%%'
 
-If an output error is encountered, a negative value (-1) is returned.
+ .SH EXAMPLE
 
+ To print the day of the year, where weekday and month are pointers to strings and day and year are integers:
 
-.SH EXAMPLES:
 
-.RS
 
-.SS --------------
+#include "main.h"
 
-.I
 
-.SS Character[%c]:
 
-.RS
-
-.SS --------------
-
-.SS Input         _printf("This is a char: [%c]", 'C');
-
-.SS Output	   This is a char: [C]
-
-.SS --------------
-
-.I
-
-.SS Literal String:
-
-.RS
-
-.SS --------------
-
-.SS Input	 _printf("Let's try to printf a simple sentence");
-
-.SS Output	  Let's try to printf a simple sentence
-
-.SS --------------
-
-.I
-
-.SS Integers[%i]:
-
-.RS
-
-.SS --------------
-
-.SS Input	 _printf("This is a number: [%i]", 20);
-
-.SS Output	  This is a number: [20]
-
-.SS --------------
-
-.RE
-
-
+_printf("%s, %s %d, %d\\n", weekday, month, day, year);
 
 .SH SEE ALSO
 
@@ -154,8 +142,8 @@ If an output error is encountered, a negative value (-1) is returned.
 
 .SH BUGS
 
-Report _printf Princess Nnaji (princessamphora@gmail.com), Ashley John(nightburn2003@gmail.com)
+No known bugs.
 
-.SH AUTHORS
+.SH AUTHOR
 
-Princess Nnaji and Ashley John, ALX Cohort 9. 
+Ashley John, Princess Nnaji
