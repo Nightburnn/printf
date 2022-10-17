@@ -11,6 +11,7 @@
  * @size: Size specifier
  * Return: Number of chars printed.
  */
+
 int print_unsigned(va_list types, char buffer[],
 		   int flags, int width, int precision, int size)
 {
@@ -100,7 +101,6 @@ int print_hexa_upper(va_list types, char buffer[],
 				flags, 'X', width, precision, size));
 
 }
-
 /* PRINT HEXX NUM IN LOWER OR UPPER*/
 /**
  * print_hexa - Prints a hexadecimal number in lower or upper

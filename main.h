@@ -1,5 +1,4 @@
 #ifndef MAIN_H
-
 #define MAIN_H
 
 #include <stdarg.h>
@@ -17,7 +16,6 @@
 
 
 /* FLAGS */
-
 #define F_MINUS 1
 
 #define F_PLUS 2
