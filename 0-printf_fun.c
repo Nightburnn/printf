@@ -1,7 +1,5 @@
 #include "main.h"
-
 /*PRINT CHAR*/
-
 /**
  * print_char - Prints a char
  * @types: List a of arguments
@@ -19,6 +17,7 @@ char c = va_arg(types, int);
 
 return (handle_write_char(c, buffer, flags, width, precision, size));
 }
+
 /* PRINT A STRING */
 /**
  * print_string - Prints a string
